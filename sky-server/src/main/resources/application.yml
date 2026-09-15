@@ -54,3 +54,17 @@ sky:
   wechat:
     appid: ${sky.wechat.appid}
     secret: ${sky.wechat.secret}
+    # 是否启用真实微信支付：false=模拟支付（本地联调），true=调用微信支付接口并支持退款
+    pay-enabled: false
+    # 微信支付相关配置
+  #    mchid: ${sky.wechat.mchid}
+  #    mch-serial-no: ${sky.wechat.mch-serial-no}
+  #    private-key-file-path: ${sky.wechat.private-key-file-path}
+  #    api-v3-key: ${sky.wechat.api-v3-key}
+  #    wechat-pay-cert-file-path: ${sky.wechat.wechat-pay-cert-file-path}
+  #    notify-url: ${sky.wechat.notify-url}
+  #    refund-notify-url: ${sky.wechat.refund-notify-url}
+  shop:
+    address: ${SKY_SHOP_ADDRESS:北京市海淀区上地十街10号}
+  baidu:
+    ak: ${BAIDU_MAP_AK:}

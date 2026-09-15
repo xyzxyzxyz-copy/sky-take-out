@@ -29,11 +29,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public Result exceptionHandler(SQLIntegrityConstraintViolationException sqlIntegrityConstraintViolationException){
         String n=sqlIntegrityConstraintViolationException.getMessage();
+        //打印真实的数据库异常信息，便于排查（例如：Column 'xxx' cannot be null）
+        log.error("SQL完整性约束异常信息：{}", n);
         String msg="";
-        if(n.contains("Duplicate entry")){
+        if(n!=null && n.contains("Duplicate entry")){
             String[] str=n.split(" ");
             msg="用户"+str[2]+ MessageConstant.ALREADY_EXISTS;
 
+        }else{
+            //非重复键冲突时返回原始错误信息，避免前端只看到 code=0、msg 为空
+            msg=n==null?"数据库操作异常":n;
         }
         return Result.error(msg);
     }
