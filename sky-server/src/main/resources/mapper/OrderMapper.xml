@@ -49,7 +49,7 @@
                 and status=#{status}
             </if>
             <if test="beginTime!=null">
-                and order_time >= #{beginTime}
+                and order_time &gt;= #{beginTime}
             </if>
             <if test="endTime!=null">
                 and order_time &lt;= #{endTime}
@@ -65,5 +65,59 @@
             </if>
         </where>
         order by order_time desc
+    </select>
+
+    <select id="sumTurn" resultType="java.lang.Double">
+        select sum(amount) from orders
+        <where>
+            <if test="beginTime != null">
+                and order_time &gt; #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and order_time &lt; #{endTime}
+            </if>
+            <if test="completed != null">
+                and status = #{completed}
+            </if>
+        </where>
+    </select>
+    <select id="getUserStatistics" resultType="java.lang.Integer">
+        select count(id) from user
+        <where>
+            <if test="end!=null">
+                and create_time &lt; #{end}
+            </if>
+            <if test="begin!=null">
+                and create_time &gt; #{begin}
+            </if>
+        </where>
+    </select>
+    <select id="getOrderStatistics" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(id) from orders
+        <where>
+            <if test="end!=null">
+                and order_time &lt; #{end}
+            </if>
+            <if test="begin!=null">
+                and order_time &gt; #{begin}
+            </if>
+            <if test="status!=null">
+                and status=#{status}
+            </if>
+        </where>
+    </select>
+    <select id="getSalesTop10" resultType="com.sky.dto.GoodsSalesDTO">
+        select od.name,sum(od.number) Number from order_detail od
+            left join  orders o on od.order_id=o.id
+        where o.status=5
+        <if test="beginTime!=null">
+            and order_time &gt; #{beginTime}
+        </if>
+        <if test="endTime!=null">
+            and order_time &lt; #{endTime}
+        </if>
+        group by od.name
+        order by Number desc
+        limit 0,10;
     </select>
 </mapper>

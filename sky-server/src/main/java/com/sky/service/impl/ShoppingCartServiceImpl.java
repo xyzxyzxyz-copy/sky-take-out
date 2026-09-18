@@ -6,7 +6,7 @@ import com.sky.entity.Dish;
 import com.sky.entity.Setmeal;
 import com.sky.entity.ShoppingCart;
 import com.sky.mapper.DishMapper;
-import com.sky.mapper.SetmealMapper;
+import com.sky.mapper.SetMealMapper;
 import com.sky.mapper.ShoppingCartMapper;
 import com.sky.service.ShoppingCartService;
 import org.springframework.beans.BeanUtils;
@@ -23,7 +23,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Autowired
     private DishMapper dishMapper;
     @Autowired
-    private SetmealMapper setmealMapper;
+    private SetMealMapper setmealMapper;
     @Override
     public void add(ShoppingCartDTO shoppingCartDTO){
         ShoppingCart shoppingCart=new ShoppingCart();
